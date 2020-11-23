@@ -46,9 +46,9 @@ export default {
   created() {
     this.getTest();
   },
-  methods:{
-    async getTest(){
-      const  result = await this.$http.get("http://localhost:8080/origin/test")
+  methods: {
+    async getTest() {
+      const result = await this.$http.get("http://localhost:8080/origin/test")
       console.log(result)
     }
   }
