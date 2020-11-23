@@ -1,4 +1,4 @@
-# tranlsationfront
+# translationfront
 
 ## Project setup
 ```
