@@ -1,9 +1,9 @@
 package com.leaf.tranlsationbackend.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 /**
  * @author YeYaQiao
@@ -16,9 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/origin")
 public class OriginController {
 
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("fuck");
+    @PostMapping("/getOrigin")
+    public String getOrigin(@RequestBody JSONObject originString) {
+        System.out.println(originString);
+
+        String[] str=originString.getString("origin").split(" ");
+
+        System.out.println(Arrays.toString(str));
+        for(String a:str){
+            System.out.println(a);
+        }
+
         return "test";
     }
 
