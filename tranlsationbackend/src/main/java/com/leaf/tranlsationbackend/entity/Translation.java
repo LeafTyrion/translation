@@ -2,9 +2,7 @@ package com.leaf.tranlsationbackend.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author YeYaQiao
@@ -17,6 +15,7 @@ import javax.persistence.ManyToOne;
 public class Translation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String translatedChar;

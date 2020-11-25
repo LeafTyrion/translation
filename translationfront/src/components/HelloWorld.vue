@@ -11,9 +11,9 @@
       <el-button type="danger" @click="reset">重置</el-button>
     </el-col>
     <el-col :span="11">
-      <el-form ref="form" :model="forTranslate" style="margin-top: 2%">
+      <el-form ref="form" :model="formTranslate" style="margin-top: 2%">
         <el-form-item>
-          <el-input class="input_translation" type="textarea" v-model="forTranslate.translate" resize="none"></el-input>
+          <el-input class="input_translation" type="textarea" v-model="formTranslate.translate" resize="none"></el-input>
         </el-form-item>
       </el-form>
       <el-button type="primary" @click="save">保存</el-button>
@@ -30,7 +30,7 @@ export default {
       formOrigin: {
         origin: ''
       },
-      forTranslate: {
+      formTranslate: {
         translate: ''
       }
     }
@@ -40,8 +40,9 @@ export default {
   methods: {
     async translate() {
       const result = await this.$http.post(
-          "http://127.0.0.1:8080/origin/getOrigin",
+          "http://127.0.0.1:8080/origin/getTranslationByOrigin",
           this.formOrigin);
+      this.formTranslate.translate=result.data;
       console.log(result);
     },
     reset() {

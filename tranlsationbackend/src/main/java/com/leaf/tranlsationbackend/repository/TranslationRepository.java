@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author YeYaQiao
  * @email yyq920201895@163.com
@@ -12,5 +14,9 @@ import org.springframework.stereotype.Repository;
  * @description todo
  */
 @Repository
-public interface TranslationRepository extends JpaRepository<Translation,Integer>, JpaSpecificationExecutor<Translation> {
+public interface TranslationRepository extends JpaRepository<Translation, Integer>, JpaSpecificationExecutor<Translation> {
+
+    List<Translation> findTranslationsByOrigin_OriginChar(String originChar);
+
+
 }

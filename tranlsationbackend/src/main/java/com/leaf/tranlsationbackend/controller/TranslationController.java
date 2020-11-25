@@ -1,5 +1,8 @@
 package com.leaf.tranlsationbackend.controller;
 
+import com.leaf.tranlsationbackend.service.OriginService;
+import com.leaf.tranlsationbackend.service.TranslationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/translation")
 public class TranslationController {
+
+    @Autowired
+    OriginService originService;
+    @Autowired
+    TranslationService translationService;
+
 
 
 }

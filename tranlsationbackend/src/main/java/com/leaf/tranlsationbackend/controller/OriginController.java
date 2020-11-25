@@ -1,6 +1,9 @@
 package com.leaf.tranlsationbackend.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.leaf.tranlsationbackend.service.OriginService;
+import com.leaf.tranlsationbackend.service.TranslationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -16,18 +19,14 @@ import java.util.Arrays;
 @RequestMapping("/origin")
 public class OriginController {
 
-    @PostMapping("/getOrigin")
+    @Autowired
+    OriginService originService;
+    @Autowired
+    TranslationService translationService;
+
+    @PostMapping("/getTranslationByOrigin")
     public String getOrigin(@RequestBody JSONObject originString) {
-        System.out.println(originString);
-
-        String[] str=originString.getString("origin").split(" ");
-
-        System.out.println(Arrays.toString(str));
-        for(String a:str){
-            System.out.println(a);
-        }
-
-        return "test";
+        return originService.getTranslationByOrigin(originString.getString("origin"));
     }
 
 }

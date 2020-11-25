@@ -2,9 +2,7 @@ package com.leaf.tranlsationbackend.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -18,6 +16,7 @@ import java.util.List;
 public class Origin {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String originChar;
