@@ -1,77 +1,80 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank"
-             rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank"
-             rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank"
-             rel="noopener">vuex</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a>
-      </li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <el-row :gutter="30" type="flex" justify="center">
+    <el-col :span="11">
+      <el-form ref="form" :model="formOrigin" style="margin-top: 2%">
+        <el-form-item>
+          <el-input class="input_origin" type="textarea" v-model="formOrigin.origin"
+                    resize="none" placeholder="请输入歌词原文，每个单词之间必须用空格隔开"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="success" @click="translate">转换</el-button>
+      <el-button type="danger" @click="reset">重置</el-button>
+    </el-col>
+    <el-col :span="11">
+      <el-form ref="form" :model="forTranslate" style="margin-top: 2%">
+        <el-form-item>
+          <el-input class="input_translation" type="textarea" v-model="forTranslate.translate" resize="none"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary" @click="save">保存</el-button>
+    </el-col>
+  </el-row>
+
 </template>
 
 <script>
-
-
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  data() {
+    return {
+      formOrigin: {
+        origin: ''
+      },
+      forTranslate: {
+        translate: ''
+      }
+    }
   },
   created() {
-    this.getTest();
   },
   methods: {
-    async getTest() {
-      const result = await this.$http.get("http://localhost:8080/origin/test")
-      console.log(result)
+    async translate() {
+      const result = await this.$http.post(
+          "http://127.0.0.1:8080/origin/getOrigin",
+          this.formOrigin);
+      console.log(result);
+    },
+    reset() {
+      console.log('submit!');
+    },
+    save() {
+      console.log('submit!');
     }
   }
+
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style scoped lang="less">
+
+.el-row {
+  height: 82vh;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+::v-deep .input_origin .el-textarea__inner {
+  display: flex;
+  height: 80vh;
+  font-size: 18px;
+  font-family: "微软雅黑", serif;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+::v-deep .input_translation .el-textarea__inner {
+  display: flex;
+  height: 80vh;
+  font-size: 18px;
+  font-family: "微软雅黑", serif;
+  font-style: italic;
 }
 
-a {
-  color: #42b983;
-}
 </style>
