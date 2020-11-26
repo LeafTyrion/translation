@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Translation from "@/components/Translation";
+import Dict from "@/components/Dict";
 
 Vue.use(VueRouter)
 
@@ -8,7 +10,12 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        redirect: '/translation',
+        children: [
+            {path: '/translation', component: Translation},
+            {path: '/dict', component: Dict}
+        ]
     }
     // {
     //     path: '/about',

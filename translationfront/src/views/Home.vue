@@ -2,12 +2,31 @@
   <el-container class="home_container">
     <el-header height="7%">Header</el-header>
     <el-container>
-      <el-aside width="10%">Aside</el-aside>
+      <el-aside width="15%">
+        <el-menu
+            class="el-menu-vertical-demo"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+            :collapse-transition="false"
+            :router="true"
+            :default-active="activePath?activePath:'/index'">
+          <!--二级菜单-->
+          <el-menu-item
+              :index="menuItem.path"
+              v-for="menuItem in (menuList)"
+              :key="menuItem.id"
+              @click="saveNavState(menuItem.path)">
+            <i :class="menuItem.icon"/>
+            <span slot="title">{{ menuItem.name }}</span>
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
       <el-container>
         <el-main>
-          <HelloWorld/>
+          <router-view/>
         </el-main>
-        <el-footer height="3%">Footer</el-footer>
+        <!--        <el-footer height="3%">Copyright © 2020-Forever</el-footer>-->
       </el-container>
     </el-container>
   </el-container>
@@ -15,12 +34,37 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      menuList: [
+        {
+          id: 1,
+          path: '/translation',
+          icon: 'el-icon-s-home',
+          name: '转换工具'
+        },
+        {
+          id: 2,
+          path: '/dict',
+          icon: 'el-icon-s-home',
+          name: '歌词字典'
+        }
+      ],
+      isCollapse: true,
+      activePath: ""
+    };
+  },
+  created() {
+    this.activePath = window.sessionStorage.getItem("activePath");
+  },
+  methods: {
+    saveNavState(activePath) {
+      window.sessionStorage.setItem("activePath", activePath);
+      this.activePath = activePath;
+    },
   }
 }
 </script>
@@ -29,7 +73,7 @@ export default {
 
 .home_container {
   height: 100%;
-  display: flex;
+  //display: flex;
 
 }
 
@@ -39,18 +83,30 @@ export default {
   text-align: center;
 }
 
-.el-footer {
-  text-align: center;
-  background-color: #F0F8FF;
-}
+//.el-footer {
+//  //height: 100px;
+//  line-height: 40px;
+//  position: center;
+//  bottom: 0;
+//  width: 100%;
+//  text-align: center;
+//  font-family: Arial, serif;
+//  font-size: 12px;
+//  letter-spacing: 1px;
+//}
 
 .el-aside {
-  background-color: #D3DCE6;
+  background-color: #545c64;
   color: #333;
-  text-align: center;
+  //text-align: center;
 }
 
 .el-main {
   background-color: #F8F8FF;
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

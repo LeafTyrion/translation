@@ -13,7 +13,8 @@
     <el-col :span="11">
       <el-form ref="form" :model="formTranslate" style="margin-top: 2%">
         <el-form-item>
-          <el-input class="input_translation" type="textarea" v-model="formTranslate.translate" resize="none"></el-input>
+          <el-input class="input_translation" type="textarea" v-model="formTranslate.translate"
+                    resize="none"></el-input>
         </el-form-item>
       </el-form>
       <el-button type="primary" @click="save">保存</el-button>
@@ -24,7 +25,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Translation',
   data() {
     return {
       formOrigin: {
@@ -42,7 +43,7 @@ export default {
       const result = await this.$http.post(
           "http://127.0.0.1:8080/origin/getTranslationByOrigin",
           this.formOrigin);
-      this.formTranslate.translate=result.data;
+      this.formTranslate.translate = result.data;
       console.log(result);
     },
     reset() {

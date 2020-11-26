@@ -6,8 +6,6 @@ import com.leaf.tranlsationbackend.service.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-
 /**
  * @author YeYaQiao
  * @email yyq920201895@163.com
