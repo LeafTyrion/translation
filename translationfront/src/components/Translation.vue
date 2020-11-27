@@ -17,7 +17,7 @@
                     resize="none"></el-input>
         </el-form-item>
       </el-form>
-      <el-button type="primary" @click="save">保存</el-button>
+<!--      <el-button type="primary" @click="save">保存</el-button>-->
     </el-col>
   </el-row>
 

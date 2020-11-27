@@ -41,11 +41,11 @@
         width="500px">
       <!--主体内容区域-->
       <el-form :model="dictForm" :rules="dictFormRules" ref="addFormRef" label-width="100px">
-        <el-form-item label="歌词原文" prop="origin">
-          <el-input v-model="dictForm.origin"/>
+        <el-form-item label="歌词原文" prop="originChar">
+          <el-input v-model="dictForm.originChar"/>
         </el-form-item>
-        <el-form-item label="歌词音译" prop="translation">
-          <el-input v-model="dictForm.translation"/>
+        <el-form-item label="歌词音译" prop="translatedChar">
+          <el-input v-model="dictForm.translatedChar"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -61,12 +61,12 @@
         :visible.sync="editDialogVisible"
         width="500px">
       <!--主体内容区域-->
-      <el-form :model="dict" :rules="dictFormRules" ref="editFormRef"  label-width="100px">
-        <el-form-item label="歌词原文" prop="origin">
-          <el-input v-model="dict.originChar"/>
+      <el-form :model="dictForm" :rules="dictFormRules" ref="editFormRef" label-width="100px">
+        <el-form-item label="歌词原文" prop="originChar">
+          <el-input v-model="dictForm.originChar"/>
         </el-form-item>
-        <el-form-item label="歌词音译"  prop="translation">
-          <el-input v-model="dict.translations[0].translatedChar"/>
+        <el-form-item label="歌词音译" prop="translatedChar">
+          <el-input v-model="dictForm.translatedChar"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -100,18 +100,10 @@ export default {
       dictList: [],
 
       dictForm: {
-        origin: '',
-        translation: ''
-      },
-      dict: {
-        id: 0,
+        oid: 0,
+        tid: 0,
         originChar: '',
-        translations: [
-          {
-            id: 0,
-            translatedChar: ''
-          }
-        ]
+        translatedChar: ''
       },
 
       // 控制对话框打开关闭
@@ -119,10 +111,10 @@ export default {
       editDialogVisible: false,
 
       dictFormRules: {
-        origin: [
+        originChar: [
           {required: true, message: '请输入歌词原文', trigger: 'blur'},
         ],
-        translation: [
+        translatedChar: [
           {required: true, message: '请输入歌词音译', trigger: 'blur'},
         ]
       },
@@ -191,23 +183,25 @@ export default {
       const result = await this.$http.get(
           "http://127.0.0.1:8080/origin/getOriginById",
           {params: {id: row.id}});
-      this.dict = result.data;
+      this.dictForm.oid = result.data.id;
+      this.dictForm.tid = result.data.translations[0].id;
+      this.dictForm.originChar = result.data.originChar;
+      this.dictForm.translatedChar = result.data.translations[0].translatedChar;
     },
 
     updateDict() {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return;
-        try {
-          const result = await this.$http.post(
-              "http://127.0.0.1:8080/origin/updateOrigin",
-              this.dict);
-          if (result.status == 200) {
-            this.$message.success("修改字典成功");
-            this.editDialogClosed();
-          }
-        } catch (e) {
-          return this.$message.error("添加字典失败，请检查歌词原文是否已经存在");
+        const result = await this.$http.post(
+            "http://127.0.0.1:8080/origin/updateOrigin",
+            this.dictForm);
+
+        if (result.data === true) {
+          this.editDialogClosed();
+          return this.$message.success("修改字典成功");
         }
+        return this.$message.error("添加字典失败，请检查歌词原文是否已经存在");
+
       });
 
     },

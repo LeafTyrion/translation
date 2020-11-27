@@ -40,10 +40,27 @@ public class OriginService {
         return originRepository.findAll();
     }
 
-    public void updateOrigin(JSONObject jsonObject) {
+    public void updateOrigin(JSONObject jsonObject) throws Exception {
 
+        Origin origin = new Origin();
 
-        originRepository.save(jsonObject.toJavaObject(Origin.class));
+        Translation translation = new Translation();
+
+        origin.setId(jsonObject.getInteger("oid"));
+        origin.setOriginChar(jsonObject.getString("originChar"));
+
+        translation.setId(jsonObject.getInteger("tid"));
+        translation.setTranslatedChar(jsonObject.getString("translatedChar"));
+        translation.setOrigin(origin);
+
+        if (originRepository.existsByOriginChar(origin.getOriginChar())) {
+            if (origin.getId() != originRepository.findByOriginChar(origin.getOriginChar()).getId()) {
+                throw new Exception();
+            }
+        }
+        System.out.println("fuck");
+        originRepository.save(origin);
+        translationRepository.save(translation);
 
     }
 
@@ -60,14 +77,14 @@ public class OriginService {
         Origin origin = new Origin();
         Translation translation = new Translation();
 
-        String originChar = jsonObject.getString("origin");
+        String originChar = jsonObject.getString("originChar");
 
 
         if (originRepository.existsByOriginChar(originChar)) {
             throw new Exception();
         }
         origin.setOriginChar(originChar);
-        translation.setTranslatedChar(jsonObject.getString("translation"));
+        translation.setTranslatedChar(jsonObject.getString("translatedChar"));
 
         translation.setOrigin(origin);
         origin = originRepository.save(origin);
