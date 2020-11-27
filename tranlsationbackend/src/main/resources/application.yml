@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 8088
 spring:
   jpa:
-#    show-sql: true
+    #    show-sql: true
     database: mysql
     properties:
       hibernate:
@@ -13,11 +13,14 @@ spring:
     open-in-view: false
   datasource:
     #    url: jdbc:mysql://172.16.20.100:3306/translation?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-    url: jdbc:mysql://192.168.175.100:3306/translation?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    #    url: jdbc:mysql://192.168.175.100:3306/translation?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://rm-2zecde0s72rb9mkdjto.mysql.rds.aliyuncs.com:3306/translation?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+
     username: root
     #    password: root
-    password: password
+    #    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Leaf1013!@#$
 
 logging:
   level:

@@ -150,7 +150,7 @@ export default {
 
     async getDictList() {
       const result = await this.$http.get(
-          "http://127.0.0.1:8080/origin/allOrigin",
+          "https://39.105.4.73:8088/origin/allOrigin",
           {params: this.queryInfo});
       console.log(result);
       if (result.status !== 200) {
@@ -166,7 +166,7 @@ export default {
         if (!valid) return;
         try {
           const result = await this.$http.post(
-              "http://127.0.0.1:8080/origin/addOrigin",
+              "https://39.105.4.73:8088/origin/addOrigin",
               this.dictForm);
           if (result.status == 200) {
             this.$message.success("添加字典成功");
@@ -181,7 +181,7 @@ export default {
     async editDict(row) {
       this.editDialogVisible = true;
       const result = await this.$http.get(
-          "http://127.0.0.1:8080/origin/getOriginById",
+          "https://39.105.4.73:8088/origin/getOriginById",
           {params: {id: row.id}});
       this.dictForm.oid = result.data.id;
       this.dictForm.tid = result.data.translations[0].id;
@@ -193,7 +193,7 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return;
         const result = await this.$http.post(
-            "http://127.0.0.1:8080/origin/updateOrigin",
+            "https://39.105.4.73:8088/origin/updateOrigin",
             this.dictForm);
 
         if (result.data === true) {
@@ -218,7 +218,7 @@ export default {
       });
       if (result !== 'confirm')
         return this.$message.info("取消删除");
-      const {data} = await this.$http.get("http://127.0.0.1:8080/origin/deleteOrigin", {params: {id: row.id}});
+      const {data} = await this.$http.get("https://39.105.4.73:8088/origin/deleteOrigin", {params: {id: row.id}});
       if (data === true) {
         await this.getDictList();
         return this.$message.success("删除成功");

@@ -2,7 +2,7 @@
   <el-container class="home_container">
     <el-header height="7%">Header</el-header>
     <el-container>
-      <el-aside width="130px">
+      <el-aside width="151px">
         <el-menu
             class="el-menu-vertical-demo"
             background-color="#545c64"
@@ -43,13 +43,13 @@ export default {
         {
           id: 1,
           path: '/translation',
-          icon: 'el-icon-s-home',
+          icon: 'el-icon-edit-outline',
           name: '转换工具'
         },
         {
           id: 2,
           path: '/dict',
-          icon: 'el-icon-s-home',
+          icon: 'el-icon-collection',
           name: '歌词字典'
         }
       ],
@@ -106,7 +106,7 @@ export default {
 }
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+  width: 150px;
   min-height: 400px;
 }
 </style>
