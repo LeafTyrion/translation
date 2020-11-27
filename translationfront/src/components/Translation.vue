@@ -41,7 +41,7 @@ export default {
   methods: {
     async translate() {
       const result = await this.$http.post(
-          "http://39.105.4.73:8088/origin/getTranslationByOrigin",
+          "https://39.105.4.73:8088/origin/getTranslationByOrigin",
           this.formOrigin);
       this.formTranslate.translate = result.data;
       console.log(result);
