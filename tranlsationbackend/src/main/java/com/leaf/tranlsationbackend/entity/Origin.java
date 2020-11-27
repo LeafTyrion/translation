@@ -21,6 +21,6 @@ public class Origin {
 
     private String originChar;
 
-    @OneToMany(mappedBy = "origin")
+    @OneToMany(mappedBy = "origin", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Translation> translations;
 }

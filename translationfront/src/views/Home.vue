@@ -2,7 +2,7 @@
   <el-container class="home_container">
     <el-header height="7%">Header</el-header>
     <el-container>
-      <el-aside width="15%">
+      <el-aside width="130px">
         <el-menu
             class="el-menu-vertical-demo"
             background-color="#545c64"

@@ -1,9 +1,12 @@
 package com.leaf.tranlsationbackend.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.leaf.tranlsationbackend.entity.Origin;
 import com.leaf.tranlsationbackend.entity.Translation;
 import com.leaf.tranlsationbackend.repository.OriginRepository;
 import com.leaf.tranlsationbackend.repository.TranslationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,58 @@ public class OriginService {
     OriginRepository originRepository;
     @Autowired
     TranslationRepository translationRepository;
+
+
+    public Object getAllOrigin(String query, Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return originRepository.findOriginByQuery("%" + query + "%", pageRequest);
+    }
+
+    public Object getAllOrigin(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return originRepository.findAllOrigin(pageRequest);
+    }
+
+    public Object getAllOrigin() {
+        return originRepository.findAll();
+    }
+
+    public void updateOrigin(JSONObject jsonObject) {
+
+
+        originRepository.save(jsonObject.toJavaObject(Origin.class));
+
+    }
+
+    public void deleteOriginById(int id) {
+        originRepository.deleteById(id);
+    }
+
+    public Origin getOriginById(int id) {
+        return originRepository.findById(id);
+    }
+
+    public Origin addOrigin(JSONObject jsonObject) throws Exception {
+
+        Origin origin = new Origin();
+        Translation translation = new Translation();
+
+        String originChar = jsonObject.getString("origin");
+
+
+        if (originRepository.existsByOriginChar(originChar)) {
+            throw new Exception();
+        }
+        origin.setOriginChar(originChar);
+        translation.setTranslatedChar(jsonObject.getString("translation"));
+
+        translation.setOrigin(origin);
+        origin = originRepository.save(origin);
+
+        translationRepository.save(translation);
+        return origin;
+    }
+
 
     public String getTranslationByOrigin(String originString) {
 

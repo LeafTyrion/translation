@@ -1,5 +1,6 @@
 package com.leaf.tranlsationbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,5 +22,6 @@ public class Translation {
     private String translatedChar;
 
     @ManyToOne
+    @JsonIgnore
     private Origin origin;
 }
